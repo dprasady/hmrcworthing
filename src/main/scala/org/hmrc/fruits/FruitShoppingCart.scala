@@ -34,11 +34,15 @@ object FruitShoppingCart {
       case _ => noOfOranges - (noOfOranges / 3)
     }
 
-    ((disApples * Fruits.Apple.id) + (disOranges * Fruits.Orange.id)) / 100.0
+    convertToPounds(disApples, disOranges)
   }
 
   def calculatePrice(cartItems: String): Double = {
     val (noOfApples: Int, noOfOranges: Int) = getNoOfApplesAndOranges(cartItems)
+    convertToPounds(noOfApples, noOfOranges)
+  }
+
+  private def convertToPounds(noOfApples: Int, noOfOranges: Int) = {
     ((noOfApples * Fruits.Apple.id) + (noOfOranges * Fruits.Orange.id)) / 100.0
   }
 
