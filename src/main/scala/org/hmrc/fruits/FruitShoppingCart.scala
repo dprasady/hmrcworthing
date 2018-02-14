@@ -14,10 +14,19 @@ object FruitShoppingCart {
   import FruitShoppingCartErrorCodes._
 
   def calculatePrice(cartItems: String): Double = {
+    var sum = 0.0
     cartItems match {
-      case cartItems if (cartItems == null || cartItems.isEmpty) =>
+      case cartItems if cartItems == null || cartItems.isEmpty =>
         throw new IllegalArgumentException(EMPTY_CART)
-      case _ => ???
+      case _ =>
+        cartItems.split(",").foreach { cartItem =>
+          cartItem match {
+            case x if x == Fruits.Apple.toString => sum += Fruits.Apple.id
+            case x if x == Fruits.Orange.toString => sum += Fruits.Orange.id
+            case _ => throw new IllegalArgumentException(s"$cartItem invalid cart item")
+          }
+        }
+        sum / 100
     }
   }
 }
