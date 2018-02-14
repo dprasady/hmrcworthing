@@ -20,17 +20,38 @@ object FruitShoppingCart {
       cartItems.split(",\\s")
   }
 
-  def discountOffer(cartItems: String): Double = ???
+  def discountOffer(cartItems: String): Double = {
+    val (noOfApples: Int, noOfOranges: Int) = getNoOfApplesAndOranges(cartItems)
+
+    val disApples = noOfApples match {
+      case apples if apples == 0 => 0
+      case apples if apples % 2 == 0 => apples / 2
+      case _ => (noOfApples / 2) + 1
+    }
+
+    val disOranges = noOfOranges match {
+      case oranges if oranges == 0 => 0
+      case _ => noOfOranges - (noOfOranges / 3)
+    }
+
+    ((disApples * Fruits.Apple.id) + (disOranges * Fruits.Orange.id)) / 100.0
+  }
 
   def calculatePrice(cartItems: String): Double = {
-    var sum = 0.0
+    val (noOfApples: Int, noOfOranges: Int) = getNoOfApplesAndOranges(cartItems)
+    ((noOfApples * Fruits.Apple.id) + (noOfOranges * Fruits.Orange.id)) / 100.0
+  }
+
+  private def getNoOfApplesAndOranges(cartItems: String) = {
+    var noOfApples = 0
+    var noOfOranges = 0
     validateCart(cartItems).foreach { cartItem =>
       cartItem match {
-        case x if x == Fruits.Apple.toString => sum += Fruits.Apple.id
-        case x if x == Fruits.Orange.toString => sum += Fruits.Orange.id
+        case x if x == Fruits.Apple.toString => noOfApples += 1
+        case x if x == Fruits.Orange.toString => noOfOranges += 1
         case _ => throw new IllegalArgumentException(s"$cartItem invalid cart item")
       }
     }
-    sum / 100
+    (noOfApples, noOfOranges)
   }
 }
