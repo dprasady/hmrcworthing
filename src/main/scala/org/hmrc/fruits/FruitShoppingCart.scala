@@ -19,7 +19,7 @@ object FruitShoppingCart {
       case cartItems if cartItems == null || cartItems.isEmpty =>
         throw new IllegalArgumentException(EMPTY_CART)
       case _ =>
-        cartItems.split(",").foreach { cartItem =>
+        cartItems.split(",\\s").foreach { cartItem =>
           cartItem match {
             case x if x == Fruits.Apple.toString => sum += Fruits.Apple.id
             case x if x == Fruits.Orange.toString => sum += Fruits.Orange.id

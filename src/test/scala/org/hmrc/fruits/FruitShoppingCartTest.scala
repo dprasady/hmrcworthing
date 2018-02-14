@@ -21,4 +21,12 @@ class FruitShoppingCartTest extends FlatSpec {
   "single apple item in the shopping cart" should "0.6 pounds" in {
     assert(FruitShoppingCart.calculatePrice("Apple") == 0.6)
   }
+
+  "single orange item in the shopping cart" should "0.25 pounds" in {
+    assert(FruitShoppingCart.calculatePrice("Orange") == 0.25)
+  }
+
+  "multiple shopping items Apple, Apple, Orange, Apple" should "2.05 pounds" in {
+    assert(FruitShoppingCart.calculatePrice("Apple, Apple, Orange, Apple") == 2.05)
+  }
 }
